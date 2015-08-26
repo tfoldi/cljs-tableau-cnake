@@ -2,21 +2,23 @@
  "file":
  "/c:/projects/IdeaProjects/cljs-tableau-cnake/out/cnake/core.js",
  "sources":["core.cljs"],
- "lineCount":104,
+ "lineCount":109,
  "mappings":
- ";AAAA;;;;;AAMA,AAACA;AAID,IAAAC,wBAAA,AAAAC,+BAAA;AAAA,AAAA,AAAAC,4CAAA;;AAAA,AAAA,IAAAC,kBAAA,iBAAAC,uBAAA;kBAAAC;AAAA,AAAA,IAAAC,kBAAA,CAAAD,YAAA;AAAA,AAAA,GAAA,CAAAC,oBAAA;AAAA,IAAAC,aAAA,CAAAF,YAAA;IAAAG,aAAA,AAEGmB;IAFHtB,kBAAA,iBAAAI,iBAAAJ;AAAA,AAAA,CAAAI,eAAA,OAAAF;;AAAAE;;AAAA,AAAA,OAAAC,uDAAAL,gBAAAG;;AAAA,GAAA,CAAAF,oBAAA;AAAA,IAAAD,kBAAAA;AAAA,AAAA,OAAAM,sDAAAN,gBAAA,IACYqB;;AADZ;;;;;AAAA,AAAA;;;;AAAA,AAAA,IAAAd,iBAAA,CAAA,KAAA,KAAA,KAAA,KAAA,KAAA,KAAA,KAAA;AAAA,AAAA,CAAAA,eAAA,OAAAC;;AAAA,CAAAD,eAAA,OAAA;;AAAAA;;gDAAAP;;AAAA,AAAA,IAAAS,0BAAA,iBAAA,AAAA;AAAA,AAAA,IAAAC,uBAAA,AAAAX,+BAAAC;AAAA,AAAA,GAAA,AAAAW,6CAAAD,qBAAA;AAAA;;AAAAA;;;;gBAAA,GAAA,CAAAE,kBAAAC;AAAA,IAAAC,mBAAAF;AAAA,AAAA,IAAAG,uBAAAf;AAAA,AAAA,CAAAe,qBAAA,OAAAD;;AAAAC;AAAA,AAAAC,6DAAAhB;;AAAA;;AAAA,AAAA,MAAAY;;;;AAAA,AAAA,GAAA,AAAAD,6CAAAF,wBAAA;AAAA,eAAAT;;;;AAAAS;;;;;uCAAAT;;;;;gDAAAA;;;;;;;;;;IAAAiB,sBAAA,iBAAAC,iBAAA,AAAApB;AAAA,AAAA,CAAAoB,eAAAC,mDAAAxB;;AAAAuB;;AAAA,AAAA,OAAAE,qEAAAH;;;;AAAAtB",
+ "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",
  "names":
  ["cljs.core/enable-console-print!", "c__6456__auto__",
   "cljs.core.async/chan", "cljs.core.async.impl.dispatch/run",
-  "f__6457__auto__", "switch__6400__auto__", "state_16001",
-  "state_val_16002", "inst_15998", "inst_15999", "statearr-16003",
+  "f__6457__auto__", "switch__6400__auto__", "state_21350",
+  "state_val_21351", "inst_21344", "inst_21345", "inst_21346",
+  "inst_21347", "inst_21348", "statearr-21352",
   "cljs.core.async.impl.ioc-helpers/return-chan",
-  "cljs.core.async.impl.ioc-helpers/take!", "statearr-16007",
+  "cljs.core.async.impl.ioc-helpers/take!", "statearr-21356",
   "state-machine__6401__auto__", "ret-value__6402__auto__",
-  "result__6403__auto__", "cljs.core/keyword-identical?", "e16008",
-  "js/Object", "ex__6404__auto__", "statearr-16009",
+  "result__6403__auto__", "cljs.core/keyword-identical?", "e21357",
+  "js/Object", "ex__6404__auto__", "statearr-21358",
   "cljs.core.async.impl.ioc-helpers/process-exception",
-  "state__6458__auto__", "statearr-16010",
+  "state__6458__auto__", "statearr-21359",
   "cljs.core.async.impl.ioc-helpers/USER-START-IDX",
   "cljs.core.async.impl.ioc-helpers/run-state-machine-wrapped",
-  "cnake.tableau/tableau-viz-ready-channel", "cnake.ui/init"]}
+  "cnake.tableau/tableau-viz-ready-channel", "js/document",
+  "cnake.ui/init"]}
