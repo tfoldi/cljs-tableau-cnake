@@ -10,3 +10,7 @@ pom.xml
 .nrepl-port
 cnake.js
 .DS_Store
+*.iml
+/.idea
+/repl
+/.repl*

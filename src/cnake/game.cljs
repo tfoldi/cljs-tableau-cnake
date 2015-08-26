@@ -5,7 +5,7 @@
 ;; --------------------------------------------------------------------------------
 ;; Game info
 
-(def width "Board width" 20)
+(def width "Board width" 25)
 (def height "Board height" 16)
 
 (def game-speed "Game logic tick speed" 200)

@@ -1,5 +1,6 @@
 (ns cnake.core
-  (:require [cnake.ui :as ui]))
+  (:require [cnake.ui :as ui]
+            [cnake.tableau :as tableau]))
 
 (enable-console-print!)
 

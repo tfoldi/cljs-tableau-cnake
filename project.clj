@@ -1,12 +1,12 @@
-(defproject cnake "0.1.0-SNAPSHOT"
-  :description "Browser snake game"
-  :url "http://example.com/FIXME"
+(defproject cljs-tableau-cnake "0.1.0-SNAPSHOT"
+  :description "Snake game using Tableau Public + JS API"
+  :url "https://github.com/tfoldi/cljs-tableau-cnake"
 
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [org.clojure/clojurescript "0.0-2505"]
                  [org.clojure/core.async "0.1.346.0-17112a-alpha"]]
 
-  :plugins [[lein-cljsbuild "1.0.3"]]
+  :plugins [[lein-cljsbuild "1.1.0"]]
 
   :source-paths ["src"]
 
@@ -14,12 +14,12 @@
     :builds [{:id "cnake"
               :source-paths ["src"]
               :compiler {
-                :output-to "cnake.js"
+                :output-to "tableau-cnake.js"
                 :output-dir "out"
                 :optimizations :none
                 :source-map true}}
              {:id "cnake-prod"
               :source-paths ["src"]
               :compiler {
-                :output-to "cnake-prod.js"
+                :output-to "tableau-cnake-prod.js"
                 :optimizations :advanced}}]})

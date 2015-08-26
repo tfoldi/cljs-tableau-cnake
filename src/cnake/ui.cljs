@@ -24,10 +24,10 @@
 
 (def square-size
   "Size of each square in the board"
-  10)
+  20)
 
 (def half-square (/ square-size 2))
-(def pill-radius 4)
+(def pill-radius 8)
 
 ;; Height and width of the canvas in pixels depending of the square-size and
 ;; the game's board size
