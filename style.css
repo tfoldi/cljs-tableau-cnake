@@ -10,6 +10,6 @@ a { color: #007AFF; }
 
 iframe, canvas { position:absolute; top: 0; right: 50%; }
 iframe { margin-right:-292.5px; z-index: -999;}
-canvas { margin-right: -255px; margin-top: 36px; z-index: 999; border:3px dotted #ccc;}
+canvas { margin-right: -255px; margin-top: 34px; z-index: 999; border:3px dotted #ccc;}
 
 #instructions { text-align: left; width: 35em; margin: 0 auto; }
