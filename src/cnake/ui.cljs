@@ -155,7 +155,11 @@
 
 (defn event->key
   "Transform an js event object into the key name"
-  [ev] (get keycodes (.-keyCode ev) :key-not-found))
+  [ev]
+  (let [keycode (.-keyCode ev)]
+	(when (#{37 38 39 40 32 13} keycode)
+		(.preventDefault ev))
+	(get keycodes (.-keyCode ev) :key-not-found)))
 
 (defn event-chan
   "Creates a channel with the events of type event-type and optionally applies
