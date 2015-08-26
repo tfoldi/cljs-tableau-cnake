@@ -116,7 +116,7 @@
       (canvas/save! ctx)
       (canvas/translate! ctx 0.5 0.5) ; To avoid blurry lines
       ; (draw-timestamp! ctx)
-      (draw-pills ctx pills)
+      ;(draw-pills ctx pills)
       (draw-snake ctx snake)
       (canvas/restore! ctx)))
   )

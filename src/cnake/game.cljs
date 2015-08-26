@@ -1,6 +1,7 @@
 (ns cnake.game
   (:require-macros [cljs.core.async.macros :refer [go go-loop]])
-  (:require [cljs.core.async :refer [chan put! <! timeout]]))
+  (:require [cnake.tableau :as tableau]
+            [cljs.core.async :refer [chan put! <! timeout]]))
 
 ;; --------------------------------------------------------------------------------
 ;; Game info
@@ -108,8 +109,8 @@
                                  (get-in world [:snake :body])))]
       (loop [pill (random-point) tries 30]
         (cond
-         (= tries 0) pills
-         (not (busy pill)) (conj pills pill)
+         (= tries 0) (tableau/update-pills pills)
+         (not (busy pill)) (tableau/update-pills (conj pills pill))
          :else (recur (random-point) (dec tries)))))
     pills))
 
