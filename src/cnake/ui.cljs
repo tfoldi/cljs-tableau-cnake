@@ -24,7 +24,7 @@
 
 (def square-size
   "Size of each square in the board"
-  20)
+  20.25)
 
 (def half-square (/ square-size 2))
 (def pill-radius 8)
