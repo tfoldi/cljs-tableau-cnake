@@ -1,8 +1,7 @@
 (ns cnake.core
   (:require-macros [cljs.core.async.macros :refer [go go-loop]])
   (:require [cnake.ui :as ui]
-            [cljs.core.async :as async]
-            [cnake.tableau :as tableau]))
+            [cljs.core.async :as async]))
 
 (enable-console-print!)
 
