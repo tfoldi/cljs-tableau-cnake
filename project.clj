@@ -22,4 +22,4 @@
               :source-paths ["src"]
               :compiler {
                 :output-to "tableau-cnake-prod.js"
-                :optimizations :advanced}}]})
+                :optimizations :whitespace}}]})
