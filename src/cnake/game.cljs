@@ -1,6 +1,7 @@
 (ns cnake.game
   (:require-macros [cljs.core.async.macros :refer [go go-loop]])
   (:require [cnake.tableau :as tableau]
+            [cljs-time.core :as time]
             [cljs.core.async :refer [chan put! <! timeout]]))
 
 ;; --------------------------------------------------------------------------------
@@ -28,6 +29,7 @@
 (def initial-world {:snake initial-snake
                     :pills []
                     :speed game-speed
+                    :epoch (time/epoch)
                     :status nil})
 
 ;; --------------------------------------------------------------------------------

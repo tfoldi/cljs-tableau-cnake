@@ -46,13 +46,13 @@
   "Resize canvas to the required size for the board"
   [] (canvas/set-dimensions! cvs width height))
 
-(defn draw-timestamp!
-  "Draw a timestamp in the bottom right of the canvas"
-  [ctx]
+(defn draw-score!
+  "Draw a score in the bottom right of the canvas"
+  [ctx snake]
   (canvas/font! ctx "monospace" "normal" 8)
   (canvas/text-align! ctx "right")
   (canvas/fill-style! ctx [0 100 40])
-  (canvas/fill-text! ctx (.toLocaleString (js/Date.)) (- width 10) (- height 10)))
+  (canvas/fill-text! ctx (str "Score: " (count snake) ) (- width 10) (- height 10)))
 
 (defn draw-text!
   "Draw a text in the screen of the canvas"
@@ -90,8 +90,9 @@
     (canvas/fill-circle! ctx x y pill-radius)
     (canvas/stroke-circle! ctx x y pill-radius)))
 
-(defn draw-game-over! [ctx]
-  (draw-text! ctx "GAME OVER\nPress Enter\nto restart"))
+(defn draw-game-over!
+  [{:keys [snake pills] :as world}]
+  (draw-text! ctx (str "GAME OVER\nYour score: " (count snake) "\n\n(Press Enter\nto restart")))
 
 ;; -------------------------------------------------------------------------------
 ;; UI data fns
@@ -115,7 +116,7 @@
       (canvas/clear-rect! ctx 0 0 width height)
       (canvas/save! ctx)
       (canvas/translate! ctx 0.5 0.5) ; To avoid blurry lines
-      ; (draw-timestamp! ctx)
+      (draw-score! ctx snake)
       ;(draw-pills ctx pills)
       (draw-snake ctx snake)
       (canvas/restore! ctx)))
@@ -129,7 +130,7 @@
       ; (println cmd v)
       (case cmd
         :world (reset! world (game-world->ui-world v))
-        :game-over (do (reset! world nil) (draw-game-over! ctx))
+        :game-over (do (draw-game-over! @world) (reset! world nil) )
         ; Commands that we don't react to yet:
         :move nil
         :eat nil
