@@ -1,6 +1,6 @@
 {"version":3,
  "file":
- "/c:/projects/IdeaProjects/cljs-tableau-cnake/out/cnake/utils/canvas.js",
+ "/C:/projects/IdeaProjects/cljs-tableau-cnake/out/cnake/utils/canvas.js",
  "sources":["canvas.cljs"],
  "lineCount":102,
  "mappings":
@@ -14,8 +14,8 @@
   "cnake.utils.canvas/fill-style!", "color", "cljs.core/apply",
   "cnake.utils.canvas/clear-rect!", "cnake.utils.canvas/fill-rect!",
   "cnake.utils.canvas/stroke-rect!", "cnake.utils.canvas/deg360",
-  "js/Math", "cnake.utils.canvas/fill-circle!", "r", "G__10681",
-  "cnake.utils.canvas/stroke-circle!", "G__10683",
+  "js/Math", "cnake.utils.canvas/fill-circle!", "r", "G__10889",
+  "cnake.utils.canvas/stroke-circle!", "G__10891",
   "cnake.utils.canvas/font", "font", "style", "size",
   "cnake.utils.canvas/font!", "family",
   "cnake.utils.canvas/text-align!", "align",

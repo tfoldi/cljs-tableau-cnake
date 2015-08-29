@@ -1,6 +1,6 @@
 {"version":3,
  "file":
- "/c:/projects/IdeaProjects/cljs-tableau-cnake/out/cljs/core/async/impl/dispatch.js",
+ "/C:/projects/IdeaProjects/cljs-tableau-cnake/out/cljs/core/async/impl/dispatch.js",
  "sources":["dispatch.cljs"],
  "lineCount":64,
  "mappings":
@@ -13,7 +13,7 @@
   "cljs.core.async.impl.dispatch/TASK_BATCH_SIZE",
   "cljs.core.async.impl.dispatch/process-messages", "count", "m",
   "cljs.core.async.impl.dispatch/queue-dispatcher",
-  "and__3610__auto__", "goog/async.nextTick",
+  "and__3676__auto__", "goog/async.nextTick",
   "cljs.core.async.impl.dispatch/run", "f",
   "cljs.core.async.impl.dispatch/queue-delay", "delay",
   "js/setTimeout"]}

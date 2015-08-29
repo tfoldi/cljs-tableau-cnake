@@ -1,6 +1,6 @@
 {"version":3,
  "file":
- "/c:/projects/IdeaProjects/cljs-tableau-cnake/out/cnake/tableau.js",
+ "/C:/projects/IdeaProjects/cljs-tableau-cnake/out/cnake/tableau.js",
  "sources":["tableau.cljs"],
  "lineCount":36,
  "mappings":
@@ -8,9 +8,9 @@
  "names":
  ["cnake.tableau/tableau-viz-ready-channel", "cljs.core.async/chan",
   "cnake.tableau/viz-url", "cnake.tableau/placeholder-div",
-  "cnake.utils.dom/by-id", "cnake.tableau/viz-options", "obj15959",
+  "cnake.utils.dom/by-id", "cnake.tableau/viz-options", "obj10476",
   "cljs.core.async/put!", "cnake.tableau/vizobj", "js/tableau.Viz",
-  "p__15960", "vec__15962", "cljs.core/nth",
+  "p__10477", "vec__10479", "cljs.core/nth",
   "cnake.tableau/calc-location", "x", "y", "cnake.game/height",
   "cnake.game/width", "cnake.tableau/update-pills", "pills",
   "cljs.core/count", "cnake.game/min-pills", "cljs.core/clj->js",
