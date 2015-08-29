@@ -92,7 +92,7 @@
 
 (defn draw-game-over!
   [{:keys [snake pills] :as world}]
-  (draw-text! ctx (str "GAME OVER\nYour score: " (count snake) "\n\n(Press Enter\nto restart")))
+  (draw-text! ctx (str "GAME OVER\nYour score: " (count snake) "\n\n(Press Enter\nto restart)")))
 
 ;; -------------------------------------------------------------------------------
 ;; UI data fns
