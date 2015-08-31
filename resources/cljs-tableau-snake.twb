@@ -227,7 +227,7 @@
           </metadata-records>
         </connection>
       </extract>
-      <layout dim-ordering='alphabetic' dim-percentage='0.5' measure-ordering='alphabetic' measure-percentage='0.4' show-structure='true' />
+      <layout dim-ordering='alphabetic' dim-percentage='0.487091' measure-ordering='alphabetic' measure-percentage='0.160069' show-structure='true' />
       <style>
         <style-rule element='mark'>
           <encoding attr='color' field='[none:Calculation_682013927872032770:ok]' type='palette'>
@@ -285,6 +285,226 @@
       <semantic-values>
         <semantic-value key='[Country].[Name]' value='&quot;Hungary&quot;' />
       </semantic-values>
+    </datasource>
+    <datasource hasconnection='false' inline='true' name='Parameters' version='9.1'>
+      <aliases enabled='yes' />
+      <column caption='Rank 1' datatype='integer' name='[Parameter 1]' param-domain-type='any' role='measure' type='quantitative' value='1'>
+        <calculation class='tableau' formula='1' />
+      </column>
+      <column caption='You' datatype='real' name='[Parameter 2]' param-domain-type='any' role='measure' type='quantitative' value='1.0'>
+        <calculation class='tableau' formula='1.0' />
+      </column>
+      <column caption='Rank 3' datatype='integer' name='[Rank 1 (copy 2)]' param-domain-type='any' role='measure' type='quantitative' value='1'>
+        <calculation class='tableau' formula='1' />
+      </column>
+      <column caption='Rank 2' datatype='integer' name='[Rank 1 (copy)]' param-domain-type='any' role='measure' type='quantitative' value='1'>
+        <calculation class='tableau' formula='1' />
+      </column>
+      <column caption='Rank 4' datatype='integer' name='[Rank 2 (copy 2)]' param-domain-type='any' role='measure' type='quantitative' value='1'>
+        <calculation class='tableau' formula='1' />
+      </column>
+      <column caption='Rank 6' datatype='integer' name='[Rank 2 (copy) (copy 2)]' param-domain-type='any' role='measure' type='quantitative' value='1'>
+        <calculation class='tableau' formula='1' />
+      </column>
+      <column caption='Rank 8' datatype='integer' name='[Rank 2 (copy) (copy) (copy 2)]' param-domain-type='any' role='measure' type='quantitative' value='1'>
+        <calculation class='tableau' formula='1' />
+      </column>
+      <column caption='Rank 10' datatype='integer' name='[Rank 2 (copy) (copy) (copy) (copy)]' param-domain-type='any' role='measure' type='quantitative' value='1'>
+        <calculation class='tableau' formula='1' />
+      </column>
+      <column caption='Rank 9' datatype='integer' name='[Rank 2 (copy) (copy) (copy)]' param-domain-type='any' role='measure' type='quantitative' value='1'>
+        <calculation class='tableau' formula='1' />
+      </column>
+      <column caption='Rank 7' datatype='integer' name='[Rank 2 (copy) (copy)]' param-domain-type='any' role='measure' type='quantitative' value='1'>
+        <calculation class='tableau' formula='1' />
+      </column>
+      <column caption='Rank 5' datatype='integer' name='[Rank 2 (copy)]' param-domain-type='any' role='measure' type='quantitative' value='1'>
+        <calculation class='tableau' formula='1' />
+      </column>
+    </datasource>
+    <datasource caption='Dummy' inline='true' name='Clipboard_20150831T165634' version='9.1'>
+      <connection class='textscan' directory='C:/Users/tfoldi/Documents/My Tableau Repository (Beta)/Datasources/Clipboard_20150831T165634'>
+        <relation name='Clipboard_20150831T165634#txt' table='[Clipboard_20150831T165634#txt]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='en_US'>
+            <column datatype='integer' name='Foo' ordinal='0' />
+          </columns>
+        </relation>
+        <refresh increment-key='' incremental-updates='false' />
+        <metadata-records>
+          <metadata-record class='column'>
+            <remote-name>Foo</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Foo]</local-name>
+            <parent-name>[Clipboard_20150831T165634#txt]</parent-name>
+            <remote-alias>Foo</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='integer' name='DebugRemoteMetadata (size)'>8</attribute>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;sint64&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[Clipboard_20150831T165634#txt]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;en_US&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column datatype='string' name='[:Measure Names]' role='dimension' type='nominal'>
+        <aliases>
+          <alias key='&quot;[Parameters].[Parameter 1]&quot;' value='1st' />
+          <alias key='&quot;[Parameters].[Rank 1 (copy 2)]&quot;' value='3rd' />
+          <alias key='&quot;[Parameters].[Rank 1 (copy)]&quot;' value='2nd' />
+          <alias key='&quot;[Parameters].[Rank 2 (copy 2)]&quot;' value='4th' />
+          <alias key='&quot;[Parameters].[Rank 2 (copy) (copy 2)]&quot;' value='6th' />
+          <alias key='&quot;[Parameters].[Rank 2 (copy) (copy) (copy 2)]&quot;' value='8th' />
+          <alias key='&quot;[Parameters].[Rank 2 (copy) (copy) (copy) (copy)]&quot;' value='10th' />
+          <alias key='&quot;[Parameters].[Rank 2 (copy) (copy) (copy)]&quot;' value='9th' />
+          <alias key='&quot;[Parameters].[Rank 2 (copy) (copy)]&quot;' value='7th' />
+          <alias key='&quot;[Parameters].[Rank 2 (copy)]&quot;' value='5th' />
+        </aliases>
+      </column>
+      <column aggregation='Sum' datatype='integer' name='[Foo]' role='dimension' type='ordinal' />
+      <column datatype='integer' name='[Number of Records]' role='measure' type='quantitative' user:auto-column='numrec'>
+        <calculation class='tableau' formula='1' />
+      </column>
+      <extract count='-1' enabled='true' units='records'>
+        <connection class='dataengine' dbname='C:\Users\tfoldi\Documents\My Tableau Repository (Beta)\Datasources\Dummy.tde' schema='Extract' tablename='Extract' update-time='08/31/2015 03:10:16 PM'>
+          <relation name='Extract' table='[Extract].[Extract]' type='table' />
+          <calculations>
+            <calculation column='[Number of Records]' formula='1' />
+          </calculations>
+          <refresh increment-key='' incremental-updates='false'>
+            <refresh-event add-from-file-path='' increment-value='%null%' refresh-type='create' rows-inserted='1' timestamp-start='2015-08-31 15:10:16.594' />
+          </refresh>
+          <metadata-records>
+            <metadata-record class='column'>
+              <remote-name>Foo</remote-name>
+              <remote-type>16</remote-type>
+              <local-name>[Foo]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>Foo</remote-alias>
+              <ordinal>0</ordinal>
+              <family>Clipboard_20150831T165634#txt</family>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>1</approx-count>
+              <contains-null>false</contains-null>
+              <statistics>
+                <statistic aggregation='Sum' datatype='real'>1.0</statistic>
+                <statistic aggregation='Avg' datatype='real'>1.0</statistic>
+                <statistic aggregation='Min' datatype='integer'>1</statistic>
+                <statistic aggregation='Max' datatype='integer'>1</statistic>
+                <statistic aggregation='StdevP' datatype='real'>0.0</statistic>
+                <statistic aggregation='VarP' datatype='real'>0.0</statistic>
+                <statistic aggregation='Count' datatype='integer'>1</statistic>
+                <statistic aggregation='Median' datatype='integer'>1</statistic>
+                <statistic aggregation='SumXSqr' datatype='real'>1.0</statistic>
+              </statistics>
+              <attributes>
+                <attribute datatype='string' name='DebugRemoteMetadata (ordered)'>&quot;asc&quot;</attribute>
+                <attribute datatype='integer' name='DebugRemoteMetadata (size)'>1</attribute>
+                <attribute datatype='boolean' name='DebugRemoteMetadata (unique)'>true</attribute>
+                <attribute datatype='string' name='DebugRemoteType'>&quot;sint8&quot;</attribute>
+              </attributes>
+            </metadata-record>
+            <metadata-record class='column'>
+              <remote-name>Number of Records</remote-name>
+              <remote-type>16</remote-type>
+              <local-name>[Number of Records]</local-name>
+              <parent-name>[Extract]</parent-name>
+              <remote-alias>Number of Records</remote-alias>
+              <ordinal>1</ordinal>
+              <local-type>integer</local-type>
+              <aggregation>Sum</aggregation>
+              <approx-count>1</approx-count>
+              <contains-null>false</contains-null>
+              <statistics>
+                <statistic aggregation='Sum' datatype='real'>1.0</statistic>
+                <statistic aggregation='Avg' datatype='real'>1.0</statistic>
+                <statistic aggregation='Min' datatype='integer'>1</statistic>
+                <statistic aggregation='Max' datatype='integer'>1</statistic>
+                <statistic aggregation='StdevP' datatype='real'>0.0</statistic>
+                <statistic aggregation='VarP' datatype='real'>0.0</statistic>
+                <statistic aggregation='Count' datatype='integer'>1</statistic>
+                <statistic aggregation='Median' datatype='integer'>1</statistic>
+                <statistic aggregation='SumXSqr' datatype='real'>1.0</statistic>
+              </statistics>
+              <attributes>
+                <attribute datatype='string' name='DebugRemoteMetadata (ordered)'>&quot;asc&quot;</attribute>
+                <attribute datatype='integer' name='DebugRemoteMetadata (size)'>1</attribute>
+                <attribute datatype='boolean' name='DebugRemoteMetadata (unique)'>true</attribute>
+                <attribute datatype='string' name='DebugRemoteType'>&quot;sint8&quot;</attribute>
+              </attributes>
+            </metadata-record>
+          </metadata-records>
+        </connection>
+      </extract>
+      <layout dim-ordering='alphabetic' dim-percentage='0.48537' measure-ordering='alphabetic' measure-percentage='0.160069' show-structure='true' />
+      <style>
+        <style-rule element='mark'>
+          <encoding attr='color' field='[:Measure Names]' type='palette'>
+            <map to='#1f77b4'>
+              <bucket>&quot;[Clipboard_20150831T165634].[sum:Calculation_34058533529366528:qk]&quot;</bucket>
+            </map>
+            <map to='#2ca02c'>
+              <bucket>&quot;[Parameters].[Rank 1 (copy 2)]&quot;</bucket>
+            </map>
+            <map to='#ff7f0e'>
+              <bucket>&quot;[Clipboard_20150831T165634].[sum:Calculation_34058533529583617:qk]&quot;</bucket>
+            </map>
+          </encoding>
+        </style-rule>
+      </style>
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;Hungary&quot;' />
+      </semantic-values>
+      <datasource-dependencies datasource='Parameters'>
+        <column caption='Rank 1' datatype='integer' name='[Parameter 1]' param-domain-type='any' role='measure' type='quantitative' value='1'>
+          <calculation class='tableau' formula='1' />
+        </column>
+        <column caption='Rank 3' datatype='integer' name='[Rank 1 (copy 2)]' param-domain-type='any' role='measure' type='quantitative' value='1'>
+          <calculation class='tableau' formula='1' />
+        </column>
+        <column caption='Rank 2' datatype='integer' name='[Rank 1 (copy)]' param-domain-type='any' role='measure' type='quantitative' value='1'>
+          <calculation class='tableau' formula='1' />
+        </column>
+        <column caption='Rank 4' datatype='integer' name='[Rank 2 (copy 2)]' param-domain-type='any' role='measure' type='quantitative' value='1'>
+          <calculation class='tableau' formula='1' />
+        </column>
+        <column caption='Rank 6' datatype='integer' name='[Rank 2 (copy) (copy 2)]' param-domain-type='any' role='measure' type='quantitative' value='1'>
+          <calculation class='tableau' formula='1' />
+        </column>
+        <column caption='Rank 8' datatype='integer' name='[Rank 2 (copy) (copy) (copy 2)]' param-domain-type='any' role='measure' type='quantitative' value='1'>
+          <calculation class='tableau' formula='1' />
+        </column>
+        <column caption='Rank 10' datatype='integer' name='[Rank 2 (copy) (copy) (copy) (copy)]' param-domain-type='any' role='measure' type='quantitative' value='1'>
+          <calculation class='tableau' formula='1' />
+        </column>
+        <column caption='Rank 9' datatype='integer' name='[Rank 2 (copy) (copy) (copy)]' param-domain-type='any' role='measure' type='quantitative' value='1'>
+          <calculation class='tableau' formula='1' />
+        </column>
+        <column caption='Rank 7' datatype='integer' name='[Rank 2 (copy) (copy)]' param-domain-type='any' role='measure' type='quantitative' value='1'>
+          <calculation class='tableau' formula='1' />
+        </column>
+        <column caption='Rank 5' datatype='integer' name='[Rank 2 (copy)]' param-domain-type='any' role='measure' type='quantitative' value='1'>
+          <calculation class='tableau' formula='1' />
+        </column>
+      </datasource-dependencies>
     </datasource>
   </datasources>
   <worksheets>
@@ -360,6 +580,139 @@
         <cols>[textscan.42241.929502037034].[none:Calculation_682013927870894080:qk]</cols>
       </table>
     </worksheet>
+    <worksheet name='StatsSheet'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontalignment='1'>Hall of fame - Top 10 Tableau Cnake Scores</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='Dummy' name='Clipboard_20150831T165634' />
+            <datasource name='Parameters' />
+          </datasources>
+          <datasource-dependencies datasource='Clipboard_20150831T165634' />
+          <datasource-dependencies datasource='Parameters'>
+            <column caption='Rank 1' datatype='integer' name='[Parameter 1]' param-domain-type='any' role='measure' type='quantitative' value='1'>
+              <calculation class='tableau' formula='1' />
+            </column>
+            <column caption='You' datatype='real' name='[Parameter 2]' param-domain-type='any' role='measure' type='quantitative' value='1.0'>
+              <calculation class='tableau' formula='1.0' />
+            </column>
+            <column caption='Rank 3' datatype='integer' name='[Rank 1 (copy 2)]' param-domain-type='any' role='measure' type='quantitative' value='1'>
+              <calculation class='tableau' formula='1' />
+            </column>
+            <column caption='Rank 2' datatype='integer' name='[Rank 1 (copy)]' param-domain-type='any' role='measure' type='quantitative' value='1'>
+              <calculation class='tableau' formula='1' />
+            </column>
+            <column caption='Rank 4' datatype='integer' name='[Rank 2 (copy 2)]' param-domain-type='any' role='measure' type='quantitative' value='1'>
+              <calculation class='tableau' formula='1' />
+            </column>
+            <column caption='Rank 6' datatype='integer' name='[Rank 2 (copy) (copy 2)]' param-domain-type='any' role='measure' type='quantitative' value='1'>
+              <calculation class='tableau' formula='1' />
+            </column>
+            <column caption='Rank 8' datatype='integer' name='[Rank 2 (copy) (copy) (copy 2)]' param-domain-type='any' role='measure' type='quantitative' value='1'>
+              <calculation class='tableau' formula='1' />
+            </column>
+            <column caption='Rank 10' datatype='integer' name='[Rank 2 (copy) (copy) (copy) (copy)]' param-domain-type='any' role='measure' type='quantitative' value='1'>
+              <calculation class='tableau' formula='1' />
+            </column>
+            <column caption='Rank 9' datatype='integer' name='[Rank 2 (copy) (copy) (copy)]' param-domain-type='any' role='measure' type='quantitative' value='1'>
+              <calculation class='tableau' formula='1' />
+            </column>
+            <column caption='Rank 7' datatype='integer' name='[Rank 2 (copy) (copy)]' param-domain-type='any' role='measure' type='quantitative' value='1'>
+              <calculation class='tableau' formula='1' />
+            </column>
+            <column caption='Rank 5' datatype='integer' name='[Rank 2 (copy)]' param-domain-type='any' role='measure' type='quantitative' value='1'>
+              <calculation class='tableau' formula='1' />
+            </column>
+          </datasource-dependencies>
+          <filter class='categorical' column='[Clipboard_20150831T165634].[:Measure Names]'>
+            <groupfilter function='union' user:op='manual'>
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[Parameters].[Parameter 1]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[Parameters].[Rank 1 (copy)]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[Parameters].[Rank 1 (copy 2)]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[Parameters].[Rank 2 (copy 2)]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[Parameters].[Rank 2 (copy)]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[Parameters].[Rank 2 (copy) (copy 2)]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[Parameters].[Rank 2 (copy) (copy)]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[Parameters].[Rank 2 (copy) (copy) (copy 2)]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[Parameters].[Rank 2 (copy) (copy) (copy)]&quot;' />
+              <groupfilter function='member' level='[:Measure Names]' member='&quot;[Parameters].[Rank 2 (copy) (copy) (copy) (copy)]&quot;' />
+            </groupfilter>
+          </filter>
+          <sort class='manual' column='[Clipboard_20150831T165634].[:Measure Names]' direction='ASC'>
+            <dictionary>
+              <bucket>&quot;[Parameters].[Parameter 1]&quot;</bucket>
+              <bucket>&quot;[Parameters].[Rank 1 (copy)]&quot;</bucket>
+              <bucket>&quot;[Parameters].[Rank 1 (copy 2)]&quot;</bucket>
+              <bucket>&quot;[Parameters].[Rank 2 (copy 2)]&quot;</bucket>
+              <bucket>&quot;[Parameters].[Rank 2 (copy)]&quot;</bucket>
+              <bucket>&quot;[Parameters].[Rank 2 (copy) (copy 2)]&quot;</bucket>
+              <bucket>&quot;[Parameters].[Rank 2 (copy) (copy)]&quot;</bucket>
+              <bucket>&quot;[Parameters].[Rank 2 (copy) (copy) (copy 2)]&quot;</bucket>
+              <bucket>&quot;[Parameters].[Rank 2 (copy) (copy) (copy)]&quot;</bucket>
+              <bucket>&quot;[Parameters].[Rank 2 (copy) (copy) (copy) (copy)]&quot;</bucket>
+              <bucket>&quot;[Parameters].[Parameter 2]&quot;</bucket>
+            </dictionary>
+          </sort>
+          <slices>
+            <column>[Clipboard_20150831T165634].[:Measure Names]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <encoding attr='space' class='0' field='[Parameters].[Parameter 2]' field-type='quantitative' fold='true' scope='rows' synchronized='true' type='space' />
+            <format attr='title' class='0' field='[Clipboard_20150831T165634].[Multiple Values]' scope='rows' value='Number of Pills eaten' />
+            <format attr='subtitle' class='0' field='[Clipboard_20150831T165634].[Multiple Values]' scope='rows' value='' />
+            <format attr='auto-subtitle' class='0' field='[Clipboard_20150831T165634].[Multiple Values]' scope='rows' value='true' />
+            <format attr='title' class='0' field='[Parameters].[Parameter 2]' scope='rows' value='Your score' />
+            <format attr='subtitle' class='0' field='[Parameters].[Parameter 2]' scope='rows' value='' />
+            <format attr='auto-subtitle' class='0' field='[Parameters].[Parameter 2]' scope='rows' value='true' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane id='2'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Bar' />
+            <encodings>
+              <lod column='[Clipboard_20150831T165634].[:Measure Names]' />
+            </encodings>
+          </pane>
+          <pane id='3' y-axis-name='[Clipboard_20150831T165634].[Multiple Values]'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Bar' />
+            <encodings>
+              <lod column='[Clipboard_20150831T165634].[:Measure Names]' />
+            </encodings>
+          </pane>
+          <pane id='4' y-axis-name='[Parameters].[Parameter 2]'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Bar' />
+            <encodings>
+              <lod column='[Clipboard_20150831T165634].[:Measure Names]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-color' value='#ff5500' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>([Clipboard_20150831T165634].[Multiple Values] + [Parameters].[Parameter 2])</rows>
+        <cols>[Clipboard_20150831T165634].[:Measure Names]</cols>
+      </table>
+    </worksheet>
   </worksheets>
   <dashboards>
     <dashboard name='cnake'>
@@ -368,6 +721,15 @@
       <zones>
         <zone h='100000' id='2' type='layout-basic' w='100000' x='0' y='0'>
           <zone h='100000' id='1' name='Sheet' w='100000' x='0' y='0' />
+        </zone>
+      </zones>
+    </dashboard>
+    <dashboard name='stats'>
+      <style />
+      <size maxheight='360' maxwidth='585' minheight='360' minwidth='585' />
+      <zones>
+        <zone h='100000' id='2' type='layout-basic' w='100000' x='0' y='0'>
+          <zone h='100000' id='1' name='StatsSheet' show-title='true' w='100000' x='0' y='0' />
         </zone>
       </zones>
     </dashboard>
@@ -409,7 +771,7 @@
         </color-one-way>
       </highlight>
     </window>
-    <window auto-hidden='0' class='dashboard' maximized='1' name='cnake'>
+    <window auto-hidden='0' class='dashboard' maximized='0' name='cnake'>
       <zones>
         <zone name='Sheet'>
           <viewpoint>
@@ -422,6 +784,45 @@
           </highlight>
         </zone>
       </zones>
+    </window>
+    <window auto-hidden='0' class='dashboard' maximized='1' name='stats'>
+      <zones>
+        <zone name='StatsSheet'>
+          <viewpoint>
+            <zoom type='entire-view' />
+          </viewpoint>
+        </zone>
+      </zones>
+    </window>
+    <window auto-hidden='0' class='worksheet' maximized='0' name='StatsSheet'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+            <card type='measures' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <highlight>
+        <color-one-way>
+          <field>[Clipboard_20150831T165634].[:Measure Names]</field>
+          <field>[Clipboard_20150831T165634].[none:Calculation_34058533529366528:ok]</field>
+          <field>[Clipboard_20150831T165634].[none:Foo:ok]</field>
+        </color-one-way>
+      </highlight>
     </window>
   </windows>
   <thumbnails>
@@ -1490,6 +1891,224 @@
       nX4mN2gYCtECYShEGAoRIsShQGgAIQ41QgMIcagRGkCIQ43QAEIcagSu46ZpPpVpe1bYtr3v
       /dq2/VQG8Xn63e+xuq6LoihPrZH1LHAcJ1CA4nkhhNh1Me4nvO3k9v3+Bs/zvwJuUMuynki1
       hwjx/4aAAYQIcZgQ3gFCHGqEBhDiUCM0gBCHGv8Gipt9Jvnc4gMAAAAASUVORK5CYII=
+    </thumbnail>
+    <thumbnail height='192' name='stats' width='192'>
+      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
+    </thumbnail>
+    <thumbnail height='192' name='StatsSheet' width='192'>
+      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
     </thumbnail>
   </thumbnails>
 </workbook>
