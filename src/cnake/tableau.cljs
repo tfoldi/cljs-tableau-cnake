@@ -1,6 +1,7 @@
 (ns cnake.tableau
   (:require-macros [cljs.core.async.macros :refer [go go-loop]])
   (:require [cljs.core.async :as async]
+            [cnake.game :as game]
             [cnake.utils.dom :as dom]))
 
 
@@ -28,9 +29,9 @@
        "Concert pill location to tableau location"
        [[x y]]
        (->
-         (- cnake.game/height 1)
+         (- game/height 1)
          (- y)
-         (* cnake.game/width)
+         (* game/width)
          (+ x)
          (+ 1)
          (str)))
@@ -38,7 +39,7 @@
 (defn update-pills
       "Pass new pills coordinates to Tableau viz"
       [pills]
-      (when (>= (count pills) cnake.game/min-pills)
+      (when (>= (count pills) game/min-pills)
             (-> vizobj
                 (.getWorkbook)
                 (.getActiveSheet)
@@ -47,3 +48,10 @@
                 (.applyFilterAsync "Location" (clj->js (map calc-location pills)) js/tableau.FilterUpdateType.REPLACE)
                 ))
       pills)
+
+
+(go-loop [{:keys [:command :pills] :as params} (async/<! game/tableau-viz-control-channel)]
+         (println "Params:" params "Cmd:" command)
+         (case command
+               :pills (update-pills pills))
+         (recur (async/<! game/tableau-viz-control-channel)))

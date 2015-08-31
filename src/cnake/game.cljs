@@ -1,7 +1,6 @@
 (ns cnake.game
   (:require-macros [cljs.core.async.macros :refer [go go-loop]])
-  (:require [cnake.tableau :as tableau]
-            [cljs-time.core :as time]
+  (:require [cljs-time.core :as time]
             [cljs.core.async :refer [chan put! <! timeout]]))
 
 ;; --------------------------------------------------------------------------------
@@ -31,6 +30,18 @@
                     :speed game-speed
                     :epoch (time/epoch)
                     :status nil})
+
+;;
+;; Tableau/Stats related
+
+(def tableau-viz-control-channel (chan))
+
+(defn tableau-update-pills
+  "Notify tableau to update pills "
+  [pills]
+  (put! tableau-viz-control-channel {:command :pills :pills pills})
+  pills)
+
 
 ;; --------------------------------------------------------------------------------
 ;; Snake logic
@@ -111,8 +122,8 @@
                                  (get-in world [:snake :body])))]
       (loop [pill (random-point) tries 30]
         (cond
-         (= tries 0) (tableau/update-pills pills)
-         (not (busy pill)) (tableau/update-pills (conj pills pill))
+         (= tries 0) (tableau-update-pills pills)
+         (not (busy pill)) (tableau-update-pills (conj pills pill))
          :else (recur (random-point) (dec tries)))))
     pills))
 
