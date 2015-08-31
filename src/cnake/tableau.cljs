@@ -36,6 +36,10 @@
          (+ 1)
          (str)))
 
+(defn update-stats
+      [pills]
+      "")
+
 (defn update-pills
       "Pass new pills coordinates to Tableau viz"
       [pills]
@@ -47,7 +51,7 @@
                 (.get "Sheet")
                 (.applyFilterAsync "Location" (clj->js (map calc-location pills)) js/tableau.FilterUpdateType.REPLACE)
                 ))
-      pills)
+      (update-stats pills))
 
 
 (go-loop [{:keys [:command :pills] :as params} (async/<! game/tableau-viz-control-channel)]
