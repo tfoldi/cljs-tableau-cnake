@@ -36,6 +36,23 @@
          (+ 1)
          (str)))
 
+(defn switch-tab
+      "Change tableau report's current sheet"
+      [viz tabname]
+      (let [workbook (.getWorkbook viz)
+            active-sheet (.getActiveSheet workbook)]
+           (when-not (= tabname (.getName active-sheet))
+                     (.activateSheetAsync workbook tabname))))
+
+(defn set-parameters
+      "Change parameter values for the active sheet"
+      [viz parameter-map]
+      (let [workbook (.getWorkbook viz)]
+           (doall
+             (map (fn [param]
+                      (.changeParameterValueAsync workbook (first param) (second param)))
+                  parameter-map))))
+
 (defn update-stats
       [pills]
       "")
