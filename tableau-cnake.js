@@ -11,9 +11,11 @@ goog.addDependency("../cljs/core/async/impl/channels.js", ['cljs.core.async.impl
 goog.addDependency("../cljs_time/core.js", ['cljs_time.core'], ['goog.date.UtcDateTime', 'cljs.core', 'goog.i18n.TimeZone', 'cljs_time.internal.core', 'goog.date.DateTime', 'goog.date.Date', 'clojure.string']);
 goog.addDependency("../cljs/core/async/impl/timers.js", ['cljs.core.async.impl.timers'], ['cljs.core.async.impl.channels', 'cljs.core.async.impl.dispatch', 'cljs.core', 'cljs.core.async.impl.protocols']);
 goog.addDependency("../cljs/core/async.js", ['cljs.core.async'], ['cljs.core.async.impl.channels', 'cljs.core.async.impl.dispatch', 'cljs.core', 'cljs.core.async.impl.buffers', 'cljs.core.async.impl.protocols', 'cljs.core.async.impl.ioc_helpers', 'cljs.core.async.impl.timers']);
-goog.addDependency("../cnake/game.js", ['cnake.game'], ['cljs.core', 'cljs.core.async', 'cljs_time.core']);
 goog.addDependency("../clojure/set.js", ['clojure.set'], ['cljs.core']);
+goog.addDependency("../cljs_time/format.js", ['cljs_time.format'], ['goog.string', 'cljs.core', 'goog.date.duration', 'cljs_time.core', 'clojure.set', 'cljs_time.internal.core', 'goog.string.format', 'clojure.string', 'goog.date']);
+goog.addDependency("../cnake/score.js", ['cnake.score'], ['goog.net.XhrIo', 'cljs.core', 'cljs.core.async', 'cljs_time.core', 'cljs_time.format']);
+goog.addDependency("../cnake/game.js", ['cnake.game'], ['cljs.core', 'cljs.core.async', 'cljs_time.core', 'cnake.score']);
 goog.addDependency("../cnake/utils/canvas.js", ['cnake.utils.canvas'], ['cljs.core']);
 goog.addDependency("../cnake/ui.js", ['cnake.ui'], ['goog.dom', 'cljs.core', 'cljs.core.async', 'cnake.game', 'clojure.set', 'cnake.utils.dom', 'clojure.string', 'goog.events', 'cnake.utils.canvas']);
-goog.addDependency("../cnake/tableau.js", ['cnake.tableau'], ['cljs.core', 'cljs.core.async', 'cnake.game', 'cnake.utils.dom']);
+goog.addDependency("../cnake/tableau.js", ['cnake.tableau'], ['cljs.core', 'cljs.core.async', 'cnake.game', 'cnake.utils.dom', 'cnake.score']);
 goog.addDependency("../cnake/core.js", ['cnake.core'], ['cnake.ui', 'cljs.core', 'cljs.core.async', 'cnake.tableau']);

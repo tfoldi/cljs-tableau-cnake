@@ -1,7 +1,8 @@
 (ns cnake.game
   (:require-macros [cljs.core.async.macros :refer [go go-loop]])
   (:require [cljs-time.core :as time]
-            [cljs.core.async :refer [chan put! <! timeout]]))
+            [cljs.core.async :refer [chan put! <! timeout]]
+            [cnake.score :as score]))
 
 ;; --------------------------------------------------------------------------------
 ;; Game info
@@ -154,7 +155,10 @@
   (let [new-snake (update-position snake)]
     ;; Check for dead and game-over
     (if (crashed? new-snake)
-      (assoc world :status :game-over)
+      (do
+        (js/console.log "GAME OVER OH BOY")
+        (put! score/score-chan [:game-over world])
+        (assoc world :status :game-over))
       ;; Check if snake eats
       (if-let [meal (feed new-snake pills)]
         ;; Grow snake
@@ -197,7 +201,11 @@
                       (>! notify [:world new-world])
                       (recur new-world))))
 
-          :turn (recur (assoc world :snake (new-vel snake v)))
+          ;; Log the turn as an input event for later "BIG DATA STYLE"
+          ;; processing :)
+          :turn (do
+                  (put! score/score-chan [:turn v])
+                  (recur (assoc world :snake (new-vel snake v))))
 
           :turbo (recur (update-speed world v))
 
