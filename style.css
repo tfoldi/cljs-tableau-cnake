@@ -12,13 +12,20 @@ iframe, canvas { position:absolute; top: 0; right: 50%; }
 iframe { margin-right:-292.5px; z-index: -999;}
 canvas { margin-right: -255px; margin-top: 14px; z-index: 999; border:3px dotted #ccc;}
 
-#instructions-wrap { text-align: left; width: 55em; margin: 0 auto; overflow:hidden;}
-#high-scores-list { width: 20em; float:left;}
+#instructions-wrap { text-align: left; width: 60em; margin: 0 auto; overflow:hidden;}
+#high-scores-list { width: 25em; float:left;}
 #instructions { text-align: left; width: 35em; float:left; }
 
-#high-scores-list-table { width: 100%: }
-#high-scores-list-table thead th { font-size: 14px; }
-#high-scores-list-table tbody td { text-align:right; }
+#high-scores-list-table { width: 100%; font-size: 13px; }
+#high-scores-list-table thead th { text-align:right; font-size: 14px; }
+#high-scores-list-table tbody td,
+#high-scores-list-table tbody th { text-align:right; border-bottom: 1px solid #ccc; padding: 0.2em; }
+#high-scores-list-table tbody .user-name {}
+#high-scores-list-table tbody .duration { padding-right:25px; }
+
+#high-scores-list-table .place-000 { font-size: 1.4em;}
+#high-scores-list-table .place-001,
+#high-scores-list-table .place-002 { font-size: 1.2em;}
 
 #highscore-name-entry { background: white; text-align:center; margin-left:-150px; left: 50%; z-index: 999; border: 5px solid #eee; position:absolute; top: 140px; width: 300px; box-shadow: 15px 15px 25px rgba(0,0,0,0.2); }
 #highscore-name-entry h2,

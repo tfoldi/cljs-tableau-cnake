@@ -82,75 +82,93 @@
 ;; Score submission
 ;; ================
 
+(def ^:private ^:const GAME-NAME "clj-snake")
+
 (def ^:private SCORING-URL "http://localhost:3000")
-(def ^:private HIGHSCORES-URL (str SCORING-URL "/get-scores/clj-snake"))
+(def ^:private HIGHSCORE-SUBMIT-URL (str SCORING-URL "/new-score"))
+(def ^:private HIGHSCORES-URL (str SCORING-URL "/get-scores/" GAME-NAME))
 
 
 (defn- make-score-event [type scores]
   (map (fn [s] {:type type :timestamp s}) scores))
 
 (defn- submit-score
-  "Submits the score to the server"
-  [epoch {:keys [pills duration keystrokes] :as score}]
-  (let [game-data {:name       "My name here"
-                   :type       "tableau-snake"
-
-                   :start-time (tf/unparse (tf/formatters :date-time) epoch)
-                   ;; Since the extra calls to update-pills are unavoidable in the current
-                   ;; design, we add the +2 here (see also the pill events further down.
-                   :score      (+ (count pills) 2)
-                   :duration   duration
-                   :events     (concat
-                                 (make-score-event "keystroke" keystrokes)
-                                 ;; Since we get an extra call when
-                                 ;; the third pill is initially generated, we need to skip
-                                 ;; the first entry here.
-                                 (make-score-event "pill" (rest pills)))}]
-    (xhr/send SCORING-URL
-              ;; Callback
-              (fn [event]
-                (let [res (-> event .-target .getResponseText)]
-                  (js/console.log "Response is:" (js/JSON.parse res))
-                  ))
-              ;; Method
-              "POST"
-              ;; Content
-              (pr-str game-data)
-              ))
+  "submits the score to the server"
+  [score results-chan]
+  (xhr/send HIGHSCORE-SUBMIT-URL
+            ;; callback
+            (fn [event]
+              (let [res (-> event .-target .getResponseText)]
+                ;; forward the received high-scores to the high score displayer
+                (async/put! results-chan (-> res js/JSON.parse js->clj))))
+            ;; method
+            "post"
+            ;; content
+            (js/JSON.stringify (clj->js score))
+            {"Content-Type" "application/json"}
+            )
   )
 
 
 
 ;; The channel for the high scores info
 (def ^:private highscore-chan (async/chan))
-(def ^:private ^:const GAME-NAME "clj-snake")
 
 (declare output-high-scores)
+(declare prepare-score-for-submission)
+(declare fetch-high-scores)
+
+(defn- is-better-score
+  "Returns true if a score is better then the other-score"
+  [other-score {:keys [score duration]}]
+  (let [last-duration (other-score "duration")
+        last-score (other-score "score")]
+    (or (< last-score score)
+        (and (= last-score score) (> last-duration duration)))))
 
 ;; The main scoring submitter waiting for scores to submit
 (go-loop [highscores []]
          (let [[v ch] (async/alts! [submit-score-chan highscore-chan])]
            (condp = ch
+             ;; We received a new batch of high-scores. Store them in the loop
              highscore-chan (do
-                              (println "Got some high-scores!" (pr-str v))
                               (output-high-scores v)
                               (recur v))
+             ;; We need to submit the score (and maybe ask for a name)
              submit-score-chan (do
                                  (println "Got submit high-scores!" (pr-str v))
-                                 (recur highscores)))
+
+                                 (let [[epoch score] v
+                                       new-score (prepare-score-for-submission epoch score)
+                                       is-new-highscore (is-better-score (last highscores) new-score)]
+
+                                   (submit-score new-score highscore-chan)
+                                   ;; If a score gets submitted
+                                   #_(if is-new-highscore
+                                     (println "New highscore")
+                                     (do
+                                       (submit-score new-score)
+                                       )
+                                     )
+                                   (println "the score is" (pr-str new-score))
+
+                                   ;; Re-load the highscores after submission
+                                   (fetch-high-scores)
+                                   (recur highscores))))
            )
-         ;; If a score gets submitted
-         #_(submit-score epoch score))
+         )
 
 
 
 (defn- output-high-scores [high-scores]
   (let [html-list (->> high-scores
-                       (map #(str "<tr>"
-                                  "<th>" (% "user-name") "</th>"
-                                  "<td>" (% "score") "</td>"
-                                  "<td>" (/ (% "duration") 1000) " seconds</td>"
-                                  "</tr>")))]
+                       (map-indexed (fn [i e]
+                                      (str "<tr class='place-00" i "'>"
+                                           "<td class='place'>" (+ 1 i) ".</td>"
+                                           "<th class='user-name'>" (e "user-name") "</th>"
+                                           "<td class='score'>" (e "score") " <small>points</small></td>"
+                                           "<td class='duration'>" (Math/round (/ (e "duration") 1000)) " <small>sec</small></td>"
+                                           "</tr>"))))]
     (-> js/document
         (.getElementById "high-scores-list-table-body")
         (aset "innerHTML" (apply str html-list)))
@@ -173,4 +191,28 @@
   )
 
 (fetch-high-scores)
+
+
+
+
+(defn- prepare-score-for-submission
+  "submits the score to the server"
+  [epoch {:keys [pills duration keystrokes] :as score}]
+  {:user-name       "my name here"
+   :game-type       "clj-snake"
+
+   :start-time (tf/unparse (tf/formatters :date-time) epoch)
+   ;; since the extra calls to update-pills are unavoidable in the current
+   ;; design, we add the +2 here (see also the pill events further down.
+   :score      (+ (count pills) 2)
+   :duration   duration
+   :events     (concat
+                 (make-score-event "keystroke" keystrokes)
+                 ;; since we get an extra call when
+                 ;; the third pill is initially generated, we need to skip
+                 ;; the first entry here.
+                 (make-score-event "pill" (rest pills)))}
+
+  )
+
 
