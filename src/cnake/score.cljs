@@ -87,7 +87,7 @@
 
 (def ^:private ^:const GAME-NAME "clj-snake")
 
-(def ^:private SCORING-URL "http://localhost:3000")
+(def ^:private SCORING-URL "http://highscore.starschema.net:3000")
 (def ^:private HIGHSCORE-SUBMIT-URL (str SCORING-URL "/new-score"))
 (def ^:private HIGHSCORES-URL (str SCORING-URL "/get-scores/" GAME-NAME))
 
@@ -126,7 +126,9 @@
   [other-score {:keys [score duration]}]
   (let [last-duration (other-score "duration")
         last-score (other-score "score")]
-    (or (< last-score score)
+    ;; If the last score is nil, we have no high scores yet
+    (or (nil? last-score)
+        (< last-score score)
         (and (= last-score score) (> last-duration duration)))))
 
 ;; The main scoring submitter waiting for scores to submit
