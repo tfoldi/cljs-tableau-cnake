@@ -2,7 +2,8 @@
   (:require-macros [cljs.core.async.macros :refer [go go-loop]])
   (:require [cljs-time.core :as time]
             [cljs.core.async :refer [chan put! <! timeout]]
-            [cnake.score :as score]))
+            [cnake.intercom :refer [tableau-viz-control-channel]]
+            [cnake.intercom :as intercom]))
 
 ;; --------------------------------------------------------------------------------
 ;; Game info
@@ -35,7 +36,7 @@
 ;;
 ;; Tableau/Stats related
 
-(def tableau-viz-control-channel (chan))
+;(def tableau-viz-control-channel (chan))
 
 (defn tableau-update-pills
   "Notify tableau to update pills "
@@ -157,7 +158,7 @@
     (if (crashed? new-snake)
       (do
         (js/console.log "GAME OVER OH BOY")
-        (put! score/score-chan [:game-over world])
+        (put! intercom/score-chan [:game-over world])
         (assoc world :status :game-over))
       ;; Check if snake eats
       (if-let [meal (feed new-snake pills)]
@@ -204,7 +205,7 @@
           ;; Log the turn as an input event for later "BIG DATA STYLE"
           ;; processing :)
           :turn (do
-                  (put! score/score-chan [:turn v])
+                  (put! intercom/score-chan [:turn v])
                   (recur (assoc world :snake (new-vel snake v))))
 
           :turbo (recur (update-speed world v))
