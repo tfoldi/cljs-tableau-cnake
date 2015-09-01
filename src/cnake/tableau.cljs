@@ -3,7 +3,8 @@
   (:require [cljs.core.async :as async]
             [cnake.game :as game]
             [cnake.utils.dom :as dom]
-            [cnake.score :as score]))
+            [cnake.score :as score]
+            [cnake.intercom :as intercom]))
 
 
 (def tableau-viz-ready-channel (async/chan))
@@ -45,7 +46,7 @@
   ;; adding them to the board, no scoring necesary
   ;; TODO: add a better method of detecting if the snake has eaten
   (when (>= (count pills) game/min-pills)
-    (async/put! score/score-chan [:pill-eaten pills])))
+    (async/put! intercom/score-chan [:pill-eaten pills])))
 
 (defn update-pills
       "Pass new pill coordinates to Tableau viz"
@@ -61,8 +62,9 @@
       (update-stats pills))
 
 
-(go-loop [{:keys [:command :pills] :as params} (async/<! game/tableau-viz-control-channel)]
+(go-loop [{:keys [:command :pills] :as params} (async/<! intercom/tableau-viz-control-channel)]
          (println "Params:" params "Cmd:" command)
          (case command
-               :pills (update-pills pills))
-         (recur (async/<! game/tableau-viz-control-channel)))
+               :pills (update-pills pills)
+               :game-over (println "GAME OVER, DO SOME WIZZARDY!"))
+         (recur (async/<! intercom/tableau-viz-control-channel)))
