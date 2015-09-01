@@ -5,13 +5,16 @@
     ;; The google closure XHR library
             [goog.net.XhrIo :as xhr]
             [cljs-time.core :as time]
-            [cljs-time.format :as tf]))
+            [cljs-time.format :as tf]
+
+            [cnake.intercom :refer [score-chan tableau-viz-control-channel]]))
 
 ;; Scoring PUBLIC API
 ;; ==================
 
-;; The channel used to input scoring data
-(def score-chan (async/chan 10))
+;;; The channel used to input scoring data
+;(def score-chan (async/chan 10))
+
 
 ;; The channel for score timing stuff
 (def submit-score-chan (async/chan 10))
@@ -84,7 +87,7 @@
 
 (def ^:private ^:const GAME-NAME "clj-snake")
 
-(def ^:private SCORING-URL "http://localhost:3000")
+(def ^:private SCORING-URL "http://highscore.starschema.net:3000")
 (def ^:private HIGHSCORE-SUBMIT-URL (str SCORING-URL "/new-score"))
 (def ^:private HIGHSCORES-URL (str SCORING-URL "/get-scores/" GAME-NAME))
 
@@ -123,7 +126,9 @@
   [other-score {:keys [score duration]}]
   (let [last-duration (other-score "duration")
         last-score (other-score "score")]
-    (or (< last-score score)
+    ;; If the last score is nil, we have no high scores yet
+    (or (nil? last-score)
+        (< last-score score)
         (and (= last-score score) (> last-duration duration)))))
 
 ;; The main scoring submitter waiting for scores to submit
@@ -136,24 +141,22 @@
                               (recur v))
              ;; We need to submit the score (and maybe ask for a name)
              submit-score-chan (do
-                                 (println "Got submit high-scores!" (pr-str v))
-
                                  (let [[epoch score] v
                                        new-score (prepare-score-for-submission epoch score)
                                        is-new-highscore (is-better-score (last highscores) new-score)]
 
+                                   (async/put! tableau-viz-control-channel {:command    :game-over
+                                                                            :score      score
+                                                                            :highscores highscores})
                                    (submit-score new-score highscore-chan)
                                    ;; If a score gets submitted
                                    #_(if is-new-highscore
-                                     (println "New highscore")
-                                     (do
-                                       (submit-score new-score)
+                                       (println "New highscore")
+                                       (do
+                                         (submit-score new-score)
+                                         )
                                        )
-                                     )
-                                   (println "the score is" (pr-str new-score))
-
                                    ;; Re-load the highscores after submission
-                                   (fetch-high-scores)
                                    (recur highscores))))
            )
          )
@@ -198,8 +201,8 @@
 (defn- prepare-score-for-submission
   "submits the score to the server"
   [epoch {:keys [pills duration keystrokes] :as score}]
-  {:user-name       "my name here"
-   :game-type       "clj-snake"
+  {:user-name  "my name here"
+   :game-type  "clj-snake"
 
    :start-time (tf/unparse (tf/formatters :date-time) epoch)
    ;; since the extra calls to update-pills are unavoidable in the current
