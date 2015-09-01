@@ -2,7 +2,8 @@
   (:require-macros [cljs.core.async.macros :refer [go go-loop]])
   (:require [cljs.core.async :as async]
             [cnake.game :as game]
-            [cnake.utils.dom :as dom]))
+            [cnake.utils.dom :as dom]
+            [cnake.score :as score]))
 
 
 (def tableau-viz-ready-channel (async/chan))
@@ -36,12 +37,18 @@
          (+ 1)
          (str)))
 
-(defn update-stats
-      [pills]
-      "")
+
+(defn- update-stats
+  "Update the stats if a pill gets eaten"
+  [pills]
+  ;; If the pill count is bellow the minimum, we are only
+  ;; adding them to the board, no scoring necesary
+  ;; TODO: add a better method of detecting if the snake has eaten
+  (when (>= (count pills) game/min-pills)
+    (async/put! score/score-chan [:pill-eaten pills])))
 
 (defn update-pills
-      "Pass new pills coordinates to Tableau viz"
+      "Pass new pill coordinates to Tableau viz"
       [pills]
       (when (>= (count pills) game/min-pills)
             (-> vizobj
