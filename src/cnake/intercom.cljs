@@ -5,3 +5,6 @@
 (def score-chan (async/chan 10))
 
 (def tableau-viz-control-channel (async/chan))
+
+(def tableau-viz-ready-channel (async/chan))
+

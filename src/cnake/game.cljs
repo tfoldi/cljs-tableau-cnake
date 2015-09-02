@@ -2,8 +2,7 @@
   (:require-macros [cljs.core.async.macros :refer [go go-loop]])
   (:require [cljs-time.core :as time]
             [cljs.core.async :refer [chan put! <! timeout]]
-            [cnake.intercom :refer [tableau-viz-control-channel]]
-            [cnake.intercom :as intercom]))
+            [cnake.intercom :as intercom :refer [tableau-viz-control-channel]]))
 
 ;; --------------------------------------------------------------------------------
 ;; Game info
@@ -188,6 +187,7 @@
 
           :reset (do
                    (if (= status :game-over) (put! cmds [:init]))
+                   (put! tableau-viz-control-channel {:command :reset})
                    (recur initial-world))
 
           :tick (let [new-world (update-world world)

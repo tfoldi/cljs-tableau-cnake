@@ -87,7 +87,7 @@
 
 (def ^:private ^:const GAME-NAME "clj-snake")
 
-(def ^:private SCORING-URL "http://highscore.starschema.net:3000")
+(def ^:private SCORING-URL "http://highscore.starschema.net")
 (def ^:private HIGHSCORE-SUBMIT-URL (str SCORING-URL "/new-score"))
 (def ^:private HIGHSCORES-URL (str SCORING-URL "/get-scores/" GAME-NAME))
 

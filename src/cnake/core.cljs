@@ -2,6 +2,7 @@
   (:require-macros [cljs.core.async.macros :refer [go go-loop]])
   (:require [cnake.ui :as ui]
             [cnake.tableau :as tableau]
+            [cnake.intercom :as intercom]
             [cljs.core.async :as async]))
 
 (enable-console-print!)
@@ -9,8 +10,8 @@
 ;; The ui is the starting point. It will render itself and initialize
 ;; the game. But only after Tableau viz is in interactive mode
 (go
-  (async/<! tableau/tableau-viz-ready-channel)
-  
+  (async/<! intercom/tableau-viz-ready-channel)
+
   ;; After the tableau visualization has started, we need to re-focus
   ;; on the game div to get the keyboard inputs correctly.
   ;;
