@@ -187,6 +187,8 @@
 
           :reset (do
                    (if (= status :game-over) (put! cmds [:init]))
+                   ;; Signal that the score needs to be reset
+                   (put! intercom/score-chan [:reset nil])
                    (put! tableau-viz-control-channel {:command :reset})
                    (recur initial-world))
 

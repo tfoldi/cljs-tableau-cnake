@@ -17,6 +17,6 @@ goog.addDependency("../clojure/set.js", ['clojure.set'], ['cljs.core']);
 goog.addDependency("../cnake/utils/canvas.js", ['cnake.utils.canvas'], ['cljs.core']);
 goog.addDependency("../cnake/ui.js", ['cnake.ui'], ['goog.dom', 'cljs.core', 'cljs.core.async', 'cnake.game', 'clojure.set', 'cnake.utils.dom', 'clojure.string', 'goog.events', 'cnake.utils.canvas']);
 goog.addDependency("../cljs_time/format.js", ['cljs_time.format'], ['goog.string', 'cljs.core', 'goog.date.duration', 'cljs_time.core', 'clojure.set', 'cljs_time.internal.core', 'goog.string.format', 'clojure.string', 'goog.date']);
-goog.addDependency("../cnake/score.js", ['cnake.score'], ['goog.net.XhrIo', 'cljs.core', 'cljs.core.async', 'cljs_time.core', 'cljs_time.format', 'cnake.intercom']);
+goog.addDependency("../cnake/score.js", ['cnake.score'], ['goog.dom', 'goog.net.XhrIo', 'cljs.core', 'cljs.core.async', 'cljs_time.core', 'cljs_time.format', 'cnake.intercom', 'goog.events']);
 goog.addDependency("../cnake/tableau.js", ['cnake.tableau'], ['cljs.core', 'cljs.core.async', 'cnake.game', 'cnake.utils.dom', 'cnake.intercom', 'cnake.score']);
 goog.addDependency("../cnake/core.js", ['cnake.core'], ['cnake.ui', 'cljs.core', 'cljs.core.async', 'cnake.tableau', 'cnake.intercom']);
