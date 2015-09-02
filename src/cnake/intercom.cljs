@@ -6,5 +6,6 @@
 
 (def tableau-viz-control-channel (async/chan))
 
+;; The channel to mark when the tableau reports is complete
 (def tableau-viz-ready-channel (async/chan))
 

@@ -3,7 +3,10 @@
   (:require [cljs.core.async :as async]
 
     ;; The google closure XHR library
+            [goog.dom :as dom]
+            [goog.events :as events]
             [goog.net.XhrIo :as xhr]
+
             [cljs-time.core :as time]
             [cljs-time.format :as tf]
 
@@ -44,12 +47,7 @@
   [id visible]
   (-> js/document (.getElementById id) .-style (aset "display" (if visible "block" "none"))))
 
-(defn- show-highscore-box
-  "Shows the highscore box"
-  [score visible]
-  (toggle-element HIGHSCORE-DIV-ID visible))
-
-
+;; Main scoring loop.
 ;; Loop until we have a scoring event
 (go-loop [epoch (time/now)
           score default-score]
@@ -59,7 +57,9 @@
 
            (case command
              ;; On reset, clear the score
-             :reset (recur (time/now) default-score)
+             :reset (do
+                      (println "RESETING SCORE")
+                      (recur (time/now) default-score))
 
              ;; If the snake ate a pill, grow the pills list
              :pill-eaten (recur epoch (add-time-to epoch score :pills))
@@ -92,11 +92,9 @@
 (def ^:private HIGHSCORES-URL (str SCORING-URL "/get-scores/" GAME-NAME))
 
 
-(defn- make-score-event [type scores]
-  (map (fn [s] {:type type :timestamp s}) scores))
-
 (defn- submit-score
-  "submits the score to the server"
+  "Submits the score to the server.
+  The highscores returned by the server are sent via the results-chan"
   [score results-chan]
   (xhr/send HIGHSCORE-SUBMIT-URL
             ;; callback
@@ -117,9 +115,13 @@
 ;; The channel for the high scores info
 (def ^:private highscore-chan (async/chan))
 
+;; The channel for submitting a highscore to the server
+(def ^:private highscore-submission-chan (async/chan))
+
 (declare output-high-scores)
 (declare prepare-score-for-submission)
 (declare fetch-high-scores)
+(declare show-highscore-box)
 
 (defn- is-better-score
   "Returns true if a score is better then the other-score"
@@ -131,7 +133,7 @@
         (< last-score score)
         (and (= last-score score) (> last-duration duration)))))
 
-;; The main scoring submitter waiting for scores to submit
+;; The main scoring submitter waiting for scores to submit +
 (go-loop [highscores []]
          (let [[v ch] (async/alts! [submit-score-chan highscore-chan])]
            (condp = ch
@@ -145,77 +147,126 @@
                                        new-score (prepare-score-for-submission epoch score)
                                        is-new-highscore (is-better-score (last highscores) new-score)]
 
+                                   ;; Send the fact that we have a score to the tableau viz
                                    (async/put! tableau-viz-control-channel {:command    :game-over
                                                                             :score      score
                                                                             :highscores highscores})
-                                   (submit-score new-score highscore-chan)
-                                   ;; If a score gets submitted
-                                   #_(if is-new-highscore
-                                       (println "New highscore")
-                                       (do
-                                         (submit-score new-score)
-                                         )
+                                   ;; If the score is a new highscore, display the
+                                   (if is-new-highscore
+                                     (do
+                                       (println "NEW HIGHSCORE!")
+                                       (show-highscore-box new-score highscore-submission-chan)
                                        )
-                                   ;; Re-load the highscores after submission
+                                     ;; otherwise submit the score instantly.
+                                     (async/put! highscore-submission-chan new-score)
+                                     )
+                                   ;(submit-score new-score highscore-chan)
                                    (recur highscores))))
            )
          )
 
 
 
-(defn- output-high-scores [high-scores]
-  (let [html-list (->> high-scores
-                       (map-indexed (fn [i e]
-                                      (str "<tr class='place-00" i "'>"
-                                           "<td class='place'>" (+ 1 i) ".</td>"
-                                           "<th class='user-name'>" (e "user-name") "</th>"
-                                           "<td class='score'>" (e "score") " <small>points</small></td>"
-                                           "<td class='duration'>" (Math/round (/ (e "duration") 1000)) " <small>sec</small></td>"
-                                           "</tr>"))))]
-    (-> js/document
-        (.getElementById "high-scores-list-table-body")
-        (aset "innerHTML" (apply str html-list)))
 
-    (toggle-element "high-scores-loaded" true)
-    (toggle-element "high-scores-loader" false)
-    ))
-
-(defn- fetch-high-scores []
-  (xhr/send HIGHSCORES-URL
-            ;; Callback
-            (fn [event]
-              (let [res (-> event .-target .getResponseText)]
-                (let [v (js->clj (js/JSON.parse res))]
-                  (assert (= (first v) GAME-NAME) "Wrong game type for highscores!")
-                  (async/put! highscore-chan (second v)))))
-            ;; Method
-            "GET"
-            )
-  )
-
-(fetch-high-scores)
+;; The highscore submission channel.
+;; anything sumbitted to this channel will be submitted to the server.
+(go-loop []
+         (let [score (async/<! highscore-submission-chan)]
+           ;; If we got a score, submit it to the server
+           (submit-score score highscore-chan)
+           ;; loop here...
+           (recur)))
 
 
+(defn- show-highscore-box
+  "Shows the highscore box.
+  After the user clicks the submit button, the score will be sent to
+  submit-channel with a new user-name."
+  [score submit-channel]
+  (toggle-element HIGHSCORE-DIV-ID true)
+  ;; Attach an event listener to the highscore submission button
+  (let [submit-btn (dom/getElement "submit-name-btn")]
+    (events/listen submit-btn
+                   "click"
+                   ;; When the users clicks, unhook the listener
+                   (fn [e]
+                     ;; remove the previously attached click handler
+                     (events/removeAll submit-btn "click")
+                     (.preventDefault e)
+
+                     ;; hide the box
+                     (toggle-element HIGHSCORE-DIV-ID false)
+                     (async/put! submit-channel
+                                 (assoc score
+                                   :user-name (-> (dom/getElement "name-entry") .-value)))))))
 
 
-(defn- prepare-score-for-submission
-  "submits the score to the server"
-  [epoch {:keys [pills duration keystrokes] :as score}]
-  {:user-name  "my name here"
-   :game-type  "clj-snake"
+  ;; Displaying existing highscores
+  ;; ==============================
 
-   :start-time (tf/unparse (tf/formatters :date-time) epoch)
-   ;; since the extra calls to update-pills are unavoidable in the current
-   ;; design, we add the +2 here (see also the pill events further down.
-   :score      (+ (count pills) 2)
-   :duration   duration
-   :events     (concat
-                 (make-score-event "keystroke" keystrokes)
-                 ;; since we get an extra call when
-                 ;; the third pill is initially generated, we need to skip
-                 ;; the first entry here.
-                 (make-score-event "pill" (rest pills)))}
+  (defn- output-high-scores
+    "Creates the highscore table."
+    [high-scores]
+    (let [html-list (->> high-scores
+                         (map-indexed (fn [i e]
+                                        (str "<tr class='place-00" i "'>"
+                                             "<td class='place'>" (+ 1 i) ".</td>"
+                                             "<th class='user-name'>" (e "user-name") "</th>"
+                                             "<td class='score'>" (e "score") " <small>points</small></td>"
+                                             "<td class='duration'>" (Math/round (/ (e "duration") 1000)) " <small>sec</small></td>"
+                                             "</tr>"))))]
+      (-> js/document
+          (.getElementById "high-scores-list-table-body")
+          (aset "innerHTML" (apply str html-list)))
 
-  )
+      (toggle-element "high-scores-loaded" true)
+      (toggle-element "high-scores-loader" false)
+      ))
+
+  (defn- fetch-high-scores []
+    (xhr/send HIGHSCORES-URL
+              ;; Callback
+              (fn [event]
+                (let [res (-> event .-target .getResponseText)]
+                  (let [v (js->clj (js/JSON.parse res))]
+                    (assert (= (first v) GAME-NAME) "Wrong game type for highscores!")
+                    (async/put! highscore-chan (second v)))))
+              ;; Method
+              "GET"
+              )
+    )
+
+  ;; Load the high scores on boot
+  (fetch-high-scores)
+
+
+  ;; Submission helpers
+  ;; =================
+
+  (defn- make-score-event
+    "Convert a list of timestamps to an event of type."
+    [type scores]
+    (map (fn [s] {:type type :timestamp s}) scores))
+
+
+  (defn- prepare-score-for-submission
+    "Converts the score data to the format accepted by the server."
+    [epoch {:keys [pills duration keystrokes] :as score}]
+    {:user-name  "Anonymous"
+     :game-type  "clj-snake"
+
+     :start-time (tf/unparse (tf/formatters :date-time) epoch)
+     ;; since the extra calls to update-pills are unavoidable in the current
+     ;; design, we add the +2 here (see also the pill events further down.
+     :score      (+ (count pills) 2)
+     :duration   duration
+     :events     (concat
+                   (make-score-event "keystroke" keystrokes)
+                   ;; since we get an extra call when
+                   ;; the third pill is initially generated, we need to skip
+                   ;; the first entry here.
+                   (make-score-event "pill" (rest pills)))}
+
+    )
 
 
