@@ -61,24 +61,24 @@ return ctx.strokeRect(x,y,w,h);
 });
 cnake.utils.canvas.deg360 = ((2) * Math.PI);
 cnake.utils.canvas.fill_circle_BANG_ = (function fill_circle_BANG_(ctx,x,y,r){
-var G__10889 = ctx;
-G__10889.beginPath();
+var G__11026 = ctx;
+G__11026.beginPath();
 
-G__10889.arc(x,y,r,(0),cnake.utils.canvas.deg360,true);
+G__11026.arc(x,y,r,(0),cnake.utils.canvas.deg360,true);
 
-G__10889.fill();
+G__11026.fill();
 
-return G__10889;
+return G__11026;
 });
 cnake.utils.canvas.stroke_circle_BANG_ = (function stroke_circle_BANG_(ctx,x,y,r){
-var G__10891 = ctx;
-G__10891.beginPath();
+var G__11028 = ctx;
+G__11028.beginPath();
 
-G__10891.arc(x,y,r,(0),cnake.utils.canvas.deg360,true);
+G__11028.arc(x,y,r,(0),cnake.utils.canvas.deg360,true);
 
-G__10891.stroke();
+G__11028.stroke();
 
-return G__10891;
+return G__11028;
 });
 /**
 * Returns a string with the font parsed.

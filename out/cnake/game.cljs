@@ -1,8 +1,8 @@
 (ns cnake.game
   (:require-macros [cljs.core.async.macros :refer [go go-loop]])
-  (:require [cnake.tableau :as tableau]
-            [cljs-time.core :as time]
-            [cljs.core.async :refer [chan put! <! timeout]]))
+  (:require [cljs-time.core :as time]
+            [cljs.core.async :refer [chan put! <! timeout]]
+            [cnake.intercom :as intercom :refer [tableau-viz-control-channel]]))
 
 ;; --------------------------------------------------------------------------------
 ;; Game info
@@ -31,6 +31,18 @@
                     :speed game-speed
                     :epoch (time/epoch)
                     :status nil})
+
+;;
+;; Tableau/Stats related
+
+;(def tableau-viz-control-channel (chan))
+
+(defn tableau-update-pills
+  "Notify tableau to update pills "
+  [pills]
+  (put! tableau-viz-control-channel {:command :pills :pills pills})
+  pills)
+
 
 ;; --------------------------------------------------------------------------------
 ;; Snake logic
@@ -111,8 +123,8 @@
                                  (get-in world [:snake :body])))]
       (loop [pill (random-point) tries 30]
         (cond
-         (= tries 0) (tableau/update-pills pills)
-         (not (busy pill)) (tableau/update-pills (conj pills pill))
+         (= tries 0) (tableau-update-pills pills)
+         (not (busy pill)) (tableau-update-pills (conj pills pill))
          :else (recur (random-point) (dec tries)))))
     pills))
 
@@ -143,7 +155,10 @@
   (let [new-snake (update-position snake)]
     ;; Check for dead and game-over
     (if (crashed? new-snake)
-      (assoc world :status :game-over)
+      (do
+        (js/console.log "GAME OVER OH BOY")
+        (put! intercom/score-chan [:game-over world])
+        (assoc world :status :game-over))
       ;; Check if snake eats
       (if-let [meal (feed new-snake pills)]
         ;; Grow snake
@@ -172,6 +187,9 @@
 
           :reset (do
                    (if (= status :game-over) (put! cmds [:init]))
+                   ;; Signal that the score needs to be reset
+                   (put! intercom/score-chan [:reset nil])
+                   (put! tableau-viz-control-channel {:command :reset})
                    (recur initial-world))
 
           :tick (let [new-world (update-world world)
@@ -186,7 +204,11 @@
                       (>! notify [:world new-world])
                       (recur new-world))))
 
-          :turn (recur (assoc world :snake (new-vel snake v)))
+          ;; Log the turn as an input event for later "BIG DATA STYLE"
+          ;; processing :)
+          :turn (do
+                  (put! intercom/score-chan [:turn v])
+                  (recur (assoc world :snake (new-vel snake v))))
 
           :turbo (recur (update-speed world v))
 
