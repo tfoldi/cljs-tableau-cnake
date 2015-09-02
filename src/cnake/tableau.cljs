@@ -98,6 +98,6 @@
          (println "Params:" params "Cmd:" command)
          (case command
                :pills (update-pills pills)
-               :reset (print "reset")
+               :reset nil ;  not implemented yet
                :game-over (show-top-scores vizobj params))
          (recur (async/<! intercom/tableau-viz-control-channel)))
