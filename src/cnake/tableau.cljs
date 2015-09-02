@@ -52,7 +52,6 @@
 (defn- set-parameters
        "Change parameter values for the active sheet"
        [viz parameter-map]
-       (print "setting parameters: " parameter-map)
        (let [workbook (.getWorkbook viz)]
             (doall
               (map (fn [param]
@@ -95,7 +94,6 @@
                                              (zipmap stats-params)))))) ; merge with parameter names
 
 (go-loop [{:keys [:command :pills] :as params} (async/<! intercom/tableau-viz-control-channel)]
-         (println "Params:" params "Cmd:" command)
          (case command
                :pills (update-pills pills)
                :reset nil ;  not implemented yet

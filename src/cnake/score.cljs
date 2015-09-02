@@ -111,7 +111,6 @@
   )
 
 
-
 ;; The channel for the high scores info
 (def ^:private highscore-chan (async/chan))
 
