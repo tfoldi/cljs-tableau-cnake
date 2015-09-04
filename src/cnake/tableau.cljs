@@ -79,9 +79,7 @@
                              (.getActiveSheet)
                              (.getWorksheets)
                              (.get "Sheet")
-                             (.applyFilterAsync "Location" (clj->js (map calc-location pills)) js/tableau.FilterUpdateType.REPLACE)
-                             ))
-                       ))
+                             (.applyFilterAsync "Location" (clj->js (map calc-location pills)) js/tableau.FilterUpdateType.REPLACE)))))
        (update-stats pills))
 
 (defn- show-top-scores
